@@ -1,5 +1,5 @@
 {
-  "name": "frappe-gantt",
+  "name": "k-gantt",
   "version": "0.5.0",
   "description": "A simple, modern, interactive gantt library for the web",
   "main": "src/index.js",

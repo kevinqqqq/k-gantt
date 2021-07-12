@@ -6,18 +6,18 @@ const dev = {
     input: 'src/index.js',
     output: {
         name: 'Gantt',
-        file: 'dist/frappe-gantt.js',
+        file: 'dist/k-gantt.js',
         format: 'iife'
     },
     plugins: [
         sass({
-            output: 'dist/frappe-gantt.css'
+            output: 'dist/k-gantt.css'
         })
     ]
 };
 const prod = merge(dev, {
     output: {
-        file: 'dist/frappe-gantt.min.js'
+        file: 'dist/k-gantt.min.js'
     },
     plugins: [uglify()]
 });

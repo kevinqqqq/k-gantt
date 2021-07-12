@@ -7,5 +7,5 @@
  * @FilePath: \k-gantt\README.md
 -->
 # k-gantt
-基于 [frappe-gantt](https://github.com/frappe/gantt) 二次开发的一个gantt库
+基于 [k-gantt](https://github.com/frappe/gantt) 二次开发的一个gantt库
 

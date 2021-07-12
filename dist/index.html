@@ -1,0 +1,371 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-07-05 15:29:56
+ * @LastEditTime: 2021-07-12 12:01:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \gantt-master\dist\index.html
+-->
+<!DOCTYPE html>
+<html charset="utf-8">
+
+<head>
+        <meta charset="utf-8" />
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <link rel="Shortcut Icon" href="https://storage1013711925.baishuyun.com/favicon.ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge; chrome=1">
+        <meta name="viewport"
+                content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+        <title>GanttElastic demo</title>
+        <!-- <script src="snap.svg-min.js"></script> -->
+        <!-- <script src="moment.min.js"></script> -->
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="frappe-gantt.min.js"></script>
+
+        <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/eruda"></script>
+        <script>
+                eruda.init();
+        </script> -->
+
+        <link rel="stylesheet" type="text/css" href="frappe-gantt.css">
+        <style data-for="result" type="text/css" id="css_newi_result">
+                body {
+                        background: #fff;
+                }
+
+                #gantt {
+                        position: relative;
+                        margin: 10px;
+                        width: 800px;
+                        height: 400px;
+                        overflow: hidden;
+                }
+
+                #gantt.full {
+                        position: fixed;
+                        top: 110px;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        width: auto;
+                        height: auto;
+
+                }
+
+                .gantt-container {
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        overflow: hidden;
+                        border: #eee solid 1px;
+                }
+        </style>
+
+<body>
+        <!-- <div class="mx-auto mt-3 btn-group" role="group">
+
+                <button type="button" class="btn btn-sm btn-light">Hour</button>
+ 
+                <button type="button" class="btn btn-sm btn-light">Half Day</button>
+                <button type="button" class="btn btn-sm btn-light">Day</button>
+                <button type="button" class="btn btn-sm btn-light active">Week</button>
+                <button type="button" class="btn btn-sm btn-light">Month</button>
+                <button type="button" class="btn btn-sm btn-light">Quarterly</button>
+                <button type="button" class="btn btn-sm btn-light">Year</button>
+        </div> -->
+
+        <div style="margin: 20px;">
+                <button type="button" class="btn btn-sm btn-light" onclick="jia()">-</button>
+                <input id="ganttmode" type='range' min="0" max="7" value="3" />
+                <button type="button" class="btn btn-sm btn-light" onclick="jian()">+</button>
+                <button type="button" class="btn btn-sm btn-light" onclick="full()">全屏</button>
+                <button type="button" class="btn btn-sm btn-light" onclick="defualt()">默认</button>
+        </div>
+
+        <div id='mode' style="margin: 20px;"></div>
+        <div id="gantt" class="full"></div>
+
+        <script>
+                function full() {
+                        $('#gantt').addClass('full').empty();
+
+                        gattadd(changemode($("#ganttmode").val()))
+                }
+
+                function defualt() {
+                        $('#gantt').removeClass('full').empty();
+                        gattadd(changemode($("#ganttmode").val()))
+                }
+
+                function jia() {
+                        var val = parseInt($("#ganttmode").val()) - 1
+                        $("#ganttmode").val(val)
+
+                        gantt.change_view_mode(changemode(val))
+                }
+
+                function jian() {
+                        var val = parseInt($("#ganttmode").val()) + 1
+                        $("#ganttmode").val(val)
+                        gantt.change_view_mode(changemode(val))
+                }
+
+                function changemode(mode) {
+
+                        var modes = [
+                        'Hour',
+                        'Half Day',
+                        'Day',
+                        'Week',
+                        'Quarterly Month',
+                        'Month',
+                        'Quarterly',
+                        'Year'
+                        ]
+                        return modes[parseInt(mode)]
+
+                }
+
+                $("#ganttmode").on("mousemove", function () {
+
+
+                        gantt.change_view_mode(changemode($("#ganttmode").val()))
+                })
+
+
+                $("#ganttmode").on("touchmove", function () {
+
+
+                        gantt.change_view_mode(changemode($("#ganttmode").val()))
+                })
+
+                function gattadd(mode) {
+                        var names = [
+                                ["Redesign website", [0, 7]],
+                                ["Write new content", [1, 4]],
+                                ["Apply new styles", [3, 6]],
+                                ["Review", [7, 7]],
+                                ["Deploy", [8, 9]],
+                                ["Go Live!", [10, 30]]
+                        ];
+                        tasks = [{
+                                        start: "2021-7-01 8:25:00",
+                                        end: "2021-7-2 20:00:00",
+                                        name: "多时间段",
+                                        user: "小红",
+                                        id: "Task 1",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                },
+                                {
+                                        start: "2021-06-10 8:25:00",
+                                        end: "2021-06-20 20:00:00",
+                                        name: "任务0",
+                                        user: "小红",
+                                        id: "Task 2",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-08 10:25:00",
+                                        end: "2021-07-11 15:10:00",
+                                        name: "任务1",
+                                        user: '小明',
+                                        id: "Task 3",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-05 8:25:00",
+                                        end: "2021-07-20 16:25:00",
+                                        name: "任务2",
+                                        user: '小红',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-11 8:25:00",
+                                        end: "2021-07-13 18:22:00",
+                                        name: "任务3",
+                                        user: '小强',
+                                        id: "Task 5",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务4",
+                                        user: '明道',
+                                        id: "Task 6",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务5",
+                                        user: '明道',
+                                        id: "Task 7",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务6",
+                                        user: '明道',
+                                        id: "Task 8",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务4",
+                                        user: '明道3',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务4",
+                                        user: '明道4',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务4",
+                                        user: '明道5',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务4",
+                                        user: '明道6',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务4",
+                                        user: '明道8',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }, {
+                                        start: "2021-07-18 8:25:00",
+                                        end: "2021-07-20 9:25:00",
+                                        name: "任务455555555",
+                                        user: '明道9',
+                                        id: "Task 4",
+                                        progress: parseInt(Math.random() * 100, 10)
+                                }
+                        ]
+
+
+                        tasks[1].dependencies = "Task 0"
+                        tasks[2].dependencies = "Task 1"
+                        tasks[3].dependencies = "Task 2"
+                        tasks[4].dependencies = "Task 3"
+
+                        window.gantt = new Gantt("#gantt", tasks, {
+                                language: "zh",
+
+                                // popup_trigger:"mousemove",
+                                columns: [{
+                                                label: '用户名',
+                                                field: 'user',
+                                                width: 130,
+                                        },
+                                        {
+                                                label: '编号',
+                                                field: 'id',
+                                                width: 'auto',
+                                        },
+                                        {
+                                                label: '名称',
+                                                field: 'name',
+                                                width: 'auto',
+                                        }
+                                ],
+
+                                step: 24,
+                                // view_modes: ['Quarter Day', 'Half Day', 'Day', 'Week', 'Month'],
+                                bar_height: 20,
+                                bar_corner_radius: 3,
+                                arrow_curve: 5,
+                                padding: 18,
+                                view_mode: mode || "Week",
+                                date_format: 'YYYY-MM-DD',
+                                custom_popup_html: null,
+                                on_click: function (task) {
+                                        console.log(task);
+                                },
+                                on_date_change: function (task, start, end) {
+                                        console.log(task, start, end);
+                                },
+                                on_progress_change: function (task, progress) {
+                                        console.log(task, progress);
+                                },
+                                on_view_change: function (mode) {
+                                        $('#mode').text("当前模式：" + mode)
+                                },
+                                on_pupup: function (task,columns) {
+                                        // console.log(arguments)
+                                        var cont = {};
+                                        cont.starttime = "开始：" + task.start
+                                        cont.endtime = "结束：" + task.end
+                                        if (task.progress > 100) {
+                                                task.progress = 100
+                                        }
+                                        cont.progress = "进度：" + task.progress + "%";
+                                        var s = [];
+                                        cont.str = "";
+                                        for(let c in columns)
+                                        {       
+                                                if(task[columns[c].field])
+                                                {
+                                                        s.push(task[columns[c].field]) 
+                                                }
+                                              
+                                        }
+                                        if(s.length)
+                                                cont.str = s.join(' / ');
+                                        return cont;
+
+                                }
+                        });
+
+
+                }
+
+                gattadd()
+
+                $(".btn-group").on("click", "button", function () {
+                        $btn = $(this);
+                        var mode = $btn.text();
+                        return (mode);
+                        $btn.parent().find('button').removeClass('active');
+                        $btn.addClass('active');
+
+                });
+                window.onload = function () {
+                        // 阻止双击放大
+                        var lastTouchEnd = 0;
+                        document.addEventListener('touchstart', function (event) {
+                                if (event.touches.length > 1) {
+                                        event.preventDefault();
+                                }
+                        });
+                        document.addEventListener('touchend', function (event) {
+                                var now = (new Date()).getTime();
+                                if (now - lastTouchEnd <= 300) {
+                                        event.preventDefault();
+                                }
+                                lastTouchEnd = now;
+                        }, false);
+
+                        // 阻止双指放大
+                        document.addEventListener('gesturestart', function (event) {
+                                event.preventDefault();
+                        });
+                }
+                var touch =
+                        'ontouchstart' in window ||
+                        (window.DocumentTouch && document instanceof DocumentTouch);
+                if(touch)
+                        full()
+        </script>
+</body>
+
+</html>
